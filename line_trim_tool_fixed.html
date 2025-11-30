@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JYRO Line Trim Lookup</title>
+  <style>
+    body { font-family: 'Brik', Arial, sans-serif; max-width: 600px; margin: 40px auto; background:#181818; color:#DBFF00; }
+    h2 { font-weight: 700; letter-spacing: 1px; }
+    label { display: block; margin-bottom: 6px; font-weight: bold; }
+    select { width: 100%; padding: 10px; margin-bottom: 20px; border: 2px solid #DBFF00; border-radius: 4px; background:#181818; color:#FF40B4; }
+    .preview { margin-top: 20px; border: 2px solid #DBFF00; padding: 14px; border-radius: 6px; }
+    .download-btn { margin-top: 10px; display: inline-block; padding: 12px 16px; background:#181818; color:#DBFF00; text-decoration:none; border-radius:4px; font-weight:bold; }
+    .download-btn:hover { background:#FF40B4; color:#181818; }
+  </style>
+</head>
+<body>
+  <h2>Line Trim Lookup</h2>
+
+  <label for="canopyType">Canopy Type</label>
+  <select id="canopyType">
+    <option value="">Select canopy</option>
+    <option>Tandem</option>
+    <option>Air</option>
+    <option>Safire 1</option>
+    <option>Safire 2</option>
+    <option>Safire 3</option>
+    <option>Safire 4</option>
+    <option>Helium</option>
+    <option>Kraken ZP</option>
+    <option>Kraken LB</option>
+    <option>Crossfire 1</option>
+    <option>Crossfire 2</option>
+    <option>Crossfire 3</option>
+    <option>JFX</option>
+    <option>Leia</option>
+    <option>Petra</option>
+  </select>
+
+  <label for="canopySize">Canopy Size</label>
+  <select id="canopySize">
+    <option value="">Select size</option>
+  </select>
+
+  <div id="result" class="preview" style="display:none;">
+    <h3>Line Trim File</h3>
+    <p>Prototype: all selections show the same file.</p>
+    <embed src="placeholder-line-trim.pdf" type="application/pdf" width="100%" height="500px" style="border:1px solid #ccc;" />
+    <a href="placeholder-line-trim.pdf" download class="download-btn">Download PDF</a>
+  </div>
+
+  <script>
+    const sizeSelect = document.getElementById('canopySize');
+    for (let s = 109; s <= 199; s += 10) {
+      const opt = document.createElement('option');
+      opt.value = s;
+      opt.textContent = s;
+      sizeSelect.appendChild(opt);
+    }
+
+    const type = document.getElementById('canopyType');
+    const result = document.getElementById('result');
+
+    function update() {
+      if (type.value && sizeSelect.value) {
+        result.style.display = 'block';
+      } else {
+        result.style.display = 'none';
+      }
+    }
+
+    type.addEventListener('change', update);
+    sizeSelect.addEventListener('change', update);
+  </script>
+</body>
+</html>
